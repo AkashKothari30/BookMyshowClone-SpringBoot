@@ -1,0 +1,18 @@
+package com.cfs.BMS.dto;
+
+import com.cfs.BMS.enums.SeatType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter   @Getter
+@AllArgsConstructor   @NoArgsConstructor
+public class SeatRequest {
+    private String seatNumber;
+    private String row;
+    private  Integer column;
+
+    private SeatType seatType;
+    private  Long screenId;
+}
