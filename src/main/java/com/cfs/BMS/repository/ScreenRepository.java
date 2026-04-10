@@ -3,10 +3,9 @@ package com.cfs.BMS.repository;
 import com.cfs.BMS.entity.Screen;
 import com.cfs.BMS.entity.Theater;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-@Repository
+
 public interface ScreenRepository extends JpaRepository<Screen,Long> {
 
     List<Screen> findByTheaterId(Long theaterId);
