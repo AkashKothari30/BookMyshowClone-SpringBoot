@@ -1,20 +1,17 @@
 # Stage 1: Build
-FROM eclipse-temurin:17-jdk-focal AS builder
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle settings.gradle .
+COPY pom.xml .
 COPY src src
 
-RUN chmod +x gradlew
-RUN ./gradlew bootJar -x test
+RUN mvn clean package -DskipTests
 
 # Stage 2: Run
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
-COPY --from=builder /app/build/libs/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
