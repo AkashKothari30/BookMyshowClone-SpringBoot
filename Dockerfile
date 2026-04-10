@@ -11,7 +11,7 @@ RUN chmod +x gradlew
 RUN ./gradlew bootJar -x test
 
 # Stage 2: Run
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 COPY --from=builder /app/build/libs/*.jar app.jar
