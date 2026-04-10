@@ -19,7 +19,7 @@ public class SeatController {
        return ResponseEntity.ok(seatService.getSeatByScreen(screenId));
    }
 
-   @GetMapping("/id")
+   @GetMapping("/{id}")
    public ResponseEntity<Seat> getSeatById(@PathVariable Long id){
         return ResponseEntity.ok(seatService.getSeatById(id));
    }

@@ -1,3 +1,4 @@
+
 // ===== TOAST NOTIFICATIONS =====
 function showToast(message, type = 'info') {
     let container = document.querySelector('.toast-container');

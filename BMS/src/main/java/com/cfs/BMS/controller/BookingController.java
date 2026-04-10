@@ -32,6 +32,11 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getBookingByUserId(userId));
     }
 
+
+    @GetMapping("/show/{showId}/available-seats")
+    public ResponseEntity<List<Long>> getAvailableSeats(@PathVariable Long showId) {
+        return ResponseEntity.ok(bookingService.getAvailableSeatIds(showId));
+    }
     @PutMapping("/{id}/cancel")
     public ResponseEntity<Booking> cancelBooking(@PathVariable Long id){
         return ResponseEntity.ok(bookingService.cancelBooking(id));

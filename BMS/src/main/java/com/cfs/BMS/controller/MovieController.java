@@ -19,7 +19,7 @@ public class MovieController {
     public ResponseEntity<List<Movie>> getAllMovies(){
         return ResponseEntity.ok(movieService.getAllMovies());
     }
-    @GetMapping("/api/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable Long id){
         return ResponseEntity.ok(movieService.getMovieById(id));
     }

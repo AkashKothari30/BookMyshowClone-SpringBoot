@@ -15,5 +15,5 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
 
     // this method use for all seat id that already booked for given show
     @Query("SELECT s.id FROM Booking b JOIN b.seats s WHERE b.show.id =:showId AND b.status='CONFIRMED' ")
-    List<Long> findBookedSeatBYShowId(@Param("showId") Long showId);
+    List<Long> findBookedSeatByShowId(@Param("showId") Long showId);
 }

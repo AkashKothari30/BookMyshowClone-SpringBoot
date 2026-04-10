@@ -26,10 +26,10 @@ public class BookingService {
 @Transactional
     public Booking createBooking(BookingRequest request){
         User user = userService.getUserdById(request.getUserId());
-        Show show = showService.getShowById(request.getUserId());
+        Show show = showService.getShowById(request.getShowId());
 
         //check if seat are already book
-        List<Long> alreadyBookedSeats = bookingRepository.findBookedSeatBYShowId(show.getId());
+        List<Long> alreadyBookedSeats = bookingRepository.findBookedSeatByShowId(show.getId());
 
         for(Long seatId : request.getSeatIds()){
             if(alreadyBookedSeats.contains(seatId)){
@@ -61,6 +61,7 @@ public class BookingService {
 
     }
 
+
     @Transactional
     public Booking cancelBooking(Long bookingId){
         Booking booking = getBookingById(bookingId);
@@ -69,11 +70,25 @@ public class BookingService {
         return bookingRepository.save(booking);
 
     }
+    public List<Long> getAvailableSeatIds(Long showId) {
+
+        // booked seats
+        List<Long> bookedSeatIds = bookingRepository.findBookedSeatByShowId(showId);
+
+        // saare seats (screen ke)
+        Show show = showService.getShowById(showId);
+        List<Seat> allSeats = seatRepository.findByScreen_Id(show.getScreen().getId());
+
+        return allSeats.stream()
+                .map(Seat::getId)
+                .filter(id -> !bookedSeatIds.contains(id))
+                .toList();
+    }
 
     public List<Seat> getAvailableSeat(Long showId){
         Show show = showService.getShowById(showId);
         List<Seat> allSeats = seatRepository.findByScreen_Id(show.getScreen().getId());
-        List<Long> bookingSeatsIds = bookingRepository.findBookedSeatBYShowId(showId);
+        List<Long> bookingSeatsIds = bookingRepository.findBookedSeatByShowId(showId);
 
         return allSeats.stream()
                 .filter(seat -> !bookingSeatsIds.contains(seat.getId()))
